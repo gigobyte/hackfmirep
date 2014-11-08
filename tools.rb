@@ -1,12 +1,13 @@
-
-
-
 def openTimer()
 	Shoes.app :title => "Timer", :width => 400, :height => 140 do 
-		@seconds = 0 
-		@paused = true 
-
-		def display_time 
+		@seconds = 0
+		@paused = true
+		
+		def is_numeric?(input)
+			input.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+		end
+		
+		def display_time
 				@display.clear do
 					title "%02d:%02d:%02d" % [
 					@seconds / (60*60),
@@ -17,23 +18,27 @@ def openTimer()
 		end
 		def buttons
 			button "Start", :width => '50%' do
-				@seconds = @item.text.to_i*60
+				if @item.text != '' && @item.text != "0" && is_numeric?(@item.text)
+					@seconds = @item.text.to_i*60
+					@paused = !@paused
+					display_time
+				end
+			end
+			button "Pause/Continue", :width => '50%' do
 				@paused = !@paused
 				display_time
 			end
-			button "Pause/Continue", :width => '50%' do 
-				@paused = !@paused 
-				display_time 
-			end 
-			button "Reset", :width => '50%' do 
-				@seconds = 0
-				@paused = !@paused
-				display_time 
+			button "Reset", :width => '50%' do
+				if @item.text != '' && @item.text != "0" && is_numeric?(@item.text)
+					@seconds = 0
+					@paused = !@paused
+					display_time
+				end
 			end 
 		end
 			animate(1) do 
-				@seconds -= 1 unless @paused 
-				display_time 
+				@seconds -= 1 unless @paused
+				display_time
 			end 
 		#main
 		@display = stack :margin_left => 100 
@@ -47,7 +52,7 @@ def openInventoryEditor()
 	item_array = Array.new
 	stat_hash = Hash.new{|key,value| key[value] = []}
 	i = 0; k = 0
-	Shoes.app :title => "" do
+	Shoes.app :title => "Inventory" do
 		background "#000".."#066"
 		@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
 		button "Add", :margin_top => 10 do
@@ -94,5 +99,22 @@ def openInventoryEditor()
 				end
 			end
 		end
+	end
+end
+
+def openDice()
+	Shoes.app :title => "Dice", width: 300, height: 100 do
+		para "Enter the number of sides:"
+		@dice_sides = edit_box width: 200, height: 30, margin_right: 3
+		
+		button "Generate" do
+			if (@dice_sides.text.to_i > 0)
+				dice =(rand() * (@dice_sides.text.to_i)).to_i
+				@p.clear { para "You rolled: #{dice + 1}"}
+			else
+				@p.clear{para "Input a number"}
+			end
+		end
+		@p = flow
 	end
 end

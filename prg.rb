@@ -1,9 +1,5 @@
 require './tools.rb'
 
-
-i = 0 
-k = 0
-
 Shoes.app :title => "Board Games Tool" do
 	button "Inventory" do
 		openInventoryEditor()
@@ -11,6 +7,10 @@ Shoes.app :title => "Board Games Tool" do
 	para "\n\n"
 	button "Timer" do
 		openTimer()
+	end
+	para "\n\n"
+	button "Dice" do
+		openDice()
 	end
 	para "\n\n"
 end
