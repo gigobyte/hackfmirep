@@ -1,4 +1,4 @@
-require './functions.rb'
+require './timer.rb'
 
 item_array = Array.new
 stat_hash = Hash.new{|key,value| key[value] = []}
@@ -8,9 +8,9 @@ k = 0
 Shoes.app :title => "Board Games Tool" do
 	background "#000".."#066"
 	title("The best tool for board games",
-          top:    60,
-          align:  "top"
-          font:   "Trebuchet MS",
+          top: 60,
+          align: "top",
+          font: "Trebuchet MS",
           stroke: white)
 	@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
 	button "Add", :margin_top => 10 do
@@ -52,5 +52,9 @@ Shoes.app :title => "Board Games Tool" do
 				end
 			end
 		end
+	end
+	puts "\n"
+	button "Timer" do
+		openTimer()
 	end
 end
