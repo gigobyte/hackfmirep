@@ -7,7 +7,6 @@ Timer - YES
 
 Board:
 Points - n/a
-Calc - n/a
 Scoreboard - n/a
 Turn -YES
 
@@ -18,4 +17,4 @@ Calc - YES
 
 RPG
 Inv - n/a
-Calc (w/ %,DPS) - n/a
+Calc (w/ %,DPS) - YES

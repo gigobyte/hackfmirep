@@ -153,3 +153,73 @@ def openCalc()
 	  end
 	end
 end
+
+def openDPS()
+	Shoes.app :width => 370, :height => 280 do
+		dps = 0
+		resistance = 1
+		res_dps = 0
+		para "Base damage: "
+		@damage = edit_box width: 200, height: 30
+		para "\n\n"
+		para "Attack speed:   "
+		@attack_speed = edit_box width: 200, height: 30
+		para "\n\n"
+		para "Resistance (in %): "
+		@resistance = edit_box width: 200, height: 30
+		button "Calculate" do
+			dps = @damage.text.to_f*@attack_speed.text.to_f
+			res_dps = dps - (dps / (100 / @resistance.text.to_f))
+			para "\n\n"
+			@node.replace "Your DPS is #{dps} \nYour DPS including resistance is #{res_dps}"
+		end
+		para "\n\n"
+		@node = para "Your DPS is #{dps} \nYour DPS including resistance is #{res_dps}"
+	end
+end
+
+def openLife()
+	Shoes.app :width => 550, :height => 500 do
+		arr = ["Player 1","Player 2"]
+		life1 = 20; life2 = 20; p1 = 0; p2 = 0
+		@node = para "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+		list_box :items => arr ,width: 200, height: 30 do |list|
+			if list.text == "Player 1"
+				p1 = 1
+			else
+				p2 = 1
+			end
+		end
+		@command = edit_box width: 200, height: 30
+		button "Calculate" do
+			if @command.text.include? "-"
+				if p1 == 1
+					@command.text = @command.text.delete('-')
+					life1 -= @command.text.to_i
+					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+					p1 = 0
+				end
+				if p2 == 1
+					@command.text = @command.text.delete('-')
+					life2 -= @command.text.to_i
+					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+					p2 = 0
+				end
+			end
+			if @command.text.include? "+"
+				if p1 == 1
+					@command.text = @command.text.delete('+')
+					life1 += @command.text.to_i
+					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+					p1 = 0
+				end
+				if p2 == 1
+					@command.text = @command.text.delete('+')
+					life2 += @command.text.to_i
+					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+					p2 = 0
+				end
+			end
+		end
+	end
+end

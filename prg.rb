@@ -21,4 +21,10 @@ Shoes.app :title => "Board Games Tool" do
 	button "Calculator" do
 		openCalc()
 	end
+	button "DPS Calculator" do
+		openDPS()
+	end
+	button "Life Calculator" do
+		openLife()
+	end
 end
