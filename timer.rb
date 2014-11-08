@@ -1,5 +1,5 @@
 def openTimer()
-	Shoes.app :width => 400, :height => 150 do 
+	Shoes.app(title: "Timer", width: 400, height: 150, resizable: false) do
 		@seconds = 0 
 		@paused = true 
 

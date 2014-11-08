@@ -7,15 +7,12 @@ k = 0
 
 Shoes.app :title => "Board Games Tool" do
 	background "#000".."#066"
-	title("The best tool for board games",
-          top: 60,
-          align: "top",
-          font: "Trebuchet MS",
-          stroke: white)
 	@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
 	button "Add", :margin_top => 10 do
-		item_array[i] = @item.text
-		i += 1
+		if @item.text != ""
+			item_array[i] = @item.text
+			i += 1
+		end
 	end
 	button "Remove", :margin_top => 10 do
 		for i in 0..item_array.size
@@ -53,8 +50,9 @@ Shoes.app :title => "Board Games Tool" do
 			end
 		end
 	end
-	puts "\n"
+	para "\n\n"
 	button "Timer" do
 		openTimer()
 	end
+	para "\n\n"
 end
