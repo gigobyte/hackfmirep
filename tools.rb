@@ -165,7 +165,7 @@ def openDPS()
 		para "Attack speed:   "
 		@attack_speed = edit_box width: 200, height: 30
 		para "\n\n"
-		para "Resistance (in %): "
+		para "Enemy Resistance (in %): "
 		@resistance = edit_box width: 200, height: 30
 		button "Calculate" do
 			dps = @damage.text.to_f*@attack_speed.text.to_f
@@ -179,46 +179,43 @@ def openDPS()
 end
 
 def openLife()
-	Shoes.app :width => 550, :height => 500 do
+	Shoes.app :width => 550, :height =>82 do
 		arr = ["Player 1","Player 2"]
 		life1 = 20; life2 = 20; p1 = 0; p2 = 0
 		@node = para "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 		list_box :items => arr ,width: 200, height: 30 do |list|
 			if list.text == "Player 1"
 				p1 = 1
+				p2 = 0
 			else
 				p2 = 1
+				p1 = 0
 			end
 		end
 		@command = edit_box width: 200, height: 30
-		button "Calculate" do
-			if @command.text.include? "-"
-				if p1 == 1
-					@command.text = @command.text.delete('-')
-					life1 -= @command.text.to_i
-					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
-					p1 = 0
-				end
-				if p2 == 1
-					@command.text = @command.text.delete('-')
-					life2 -= @command.text.to_i
-					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
-					p2 = 0
-				end
+		button "Add" do
+			if p1 == 1 && 
+				@command.text = @command.text.delete('+')
+				life1 += @command.text.to_i
+				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
-			if @command.text.include? "+"
-				if p1 == 1
-					@command.text = @command.text.delete('+')
-					life1 += @command.text.to_i
-					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
-					p1 = 0
-				end
-				if p2 == 1
-					@command.text = @command.text.delete('+')
-					life2 += @command.text.to_i
-					@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
-					p2 = 0
-				end
+			if p2 == 1
+				@command.text = @command.text.delete('+')
+				life2 += @command.text.to_i
+				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+			end
+		end
+		
+		button "Remove" do
+			if p1 == 1
+				@command.text = @command.text.delete('-')
+				life1 -= @command.text.to_i
+				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+			end
+			if p2 == 1
+				@command.text = @command.text.delete('-')
+				life2 -= @command.text.to_i
+				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
 		end
 	end
