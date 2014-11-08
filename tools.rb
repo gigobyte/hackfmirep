@@ -1,17 +1,20 @@
+
+
+
 def openTimer()
-	Shoes.app :width => 400, :height => 140 do 
+	Shoes.app :title => "Timer", :width => 400, :height => 140 do 
 		@seconds = 0 
 		@paused = true 
 
 		def display_time 
 				@display.clear do
-					title "%02d:%02d:%02d" % [ 
-					@seconds / (60*60), 
-					@seconds / 60 % 60, 
-					@seconds % 60 
-				  ], :stroke => @paused ? red : black 
+					title "%02d:%02d:%02d" % [
+					@seconds / (60*60),
+					@seconds / 60 % 60,
+					@seconds % 60
+				  ], :stroke => @paused ? red : black
 				end
-		end 
+		end
 		def buttons
 			button "Start", :width => '50%' do
 				@seconds = @item.text.to_i*60
@@ -41,7 +44,10 @@ def openTimer()
 end
 
 def openInventoryEditor()
-	Shoes.app :title => "Board Games Tool" do
+	item_array = Array.new
+	stat_hash = Hash.new{|key,value| key[value] = []}
+	i = 0; k = 0
+	Shoes.app :title => "" do
 		background "#000".."#066"
 		@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
 		button "Add", :margin_top => 10 do
@@ -90,4 +96,3 @@ def openInventoryEditor()
 		end
 	end
 end
-

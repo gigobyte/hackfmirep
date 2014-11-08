@@ -1,7 +1,6 @@
 require './tools.rb'
 
-item_array = Array.new
-stat_hash = Hash.new{|key,value| key[value] = []}
+
 i = 0 
 k = 0
 
