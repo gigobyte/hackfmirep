@@ -1,18 +1,16 @@
 TCG:
 Turn - YES
-Life - n/a
+Life - YES
 Dice - YES
 Coin - YES
 Timer - YES
 
 Board:
-Points - n/a
-Scoreboard - n/a
 Turn -YES
 
 Book Game:
 Inv (w/ desc) - n/a
-Notes (w/ date) - n/a
+Notes (w/ date) - YES
 Calc - YES
 
 RPG

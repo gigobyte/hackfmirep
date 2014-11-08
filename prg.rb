@@ -1,13 +1,15 @@
 require './tools.rb'
 
-Shoes.app :title => "Board Games Tool" do
-	#background "#000".."#066"
-
-	button "Turn counter" do
-		openTurn()
+Shoes.app :title => "Board Games Tool", width: 800, height: 550  do
+	background "images/background.png"
+	
+	@image_counter = image "images/button_counter.png"
+	@image_counter.click do
+			openTurn()
 	end
-	button "Dice" do
-		openDice()
+	@image_dice = image "images/button_dice.png"
+	@image_dice.click do
+			openDice()
 	end
 	button "Timer" do
 		openTimer()
