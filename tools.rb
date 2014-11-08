@@ -81,15 +81,15 @@ def openTurn()
 	Shoes.app :title => "Turn counter", width: 150, height: 35 do
 		button "+" do
 			i += 1
-			@note.replace "Turn: #{i}"
+			@node.replace "Turn: #{i}"
 		end
 		button "-" do
 			i -= 1
 			if i == -1
 				i = 0
 			end
-			@note.replace "Turn: #{i}"
+			@node.replace "Turn: #{i}"
 		end
-		@note = para "Turn: #{i}"
+		@node = para "Turn: #{i}"
 	end
 end
