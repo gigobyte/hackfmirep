@@ -1,46 +1,41 @@
 def openTimer()
-	Shoes.app :title => "Timer", :width => 400, :height => 140 do 
-		@seconds = 0
-		@paused = true
-		
-		def is_numeric?(input)
-			input.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
-		end
-		
-		def display_time
+	Shoes.app :width => 400, :height => 140 do 
+		@seconds = 0 
+		@paused = true 
+
+		def display_time 
 				@display.clear do
-					title "%02d:%02d:%02d" % [
-					@seconds / (60*60),
-					@seconds / 60 % 60,
-					@seconds % 60
-				  ], :stroke => @paused ? red : black
+					title "%02d:%02d:%02d" % [ 
+					@seconds / (60*60), 
+					@seconds / 60 % 60, 
+					@seconds % 60 
+				  ], :stroke => @paused ? red : black 
 				end
-		end
+		end 
 		def buttons
 			button "Start", :width => '50%' do
-				if @item.text != '' && @item.text != "0" && is_numeric?(@item.text)
+				if @item.text.to_i != 0 then
 					@seconds = @item.text.to_i*60
 					@paused = !@paused
 					display_time
 				end
 			end
-			button "Pause/Continue", :width => '50%' do
-				@paused = !@paused
-				display_time
-			end
-			button "Reset", :width => '50%' do
-				if @item.text != '' && @item.text != "0" && is_numeric?(@item.text)
+			button "Pause/Continue", :width => '50%' do 
+				@paused = !@paused 
+				display_time 
+			end 
+			button "Reset", :width => '50%' do 
+				if @seconds != 0 && @item.to_i != 0 then
 					@seconds = 0
 					@paused = !@paused
 					display_time
-				end
+				end 
 			end 
 		end
 			animate(1) do 
-				@seconds -= 1 unless @paused
-				display_time
+				@seconds -= 1 unless @paused 
+				display_time 
 			end 
-		#main
 		@display = stack :margin_left => 100 
 		display_time
 		@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
@@ -48,57 +43,19 @@ def openTimer()
 	end
 end
 
-def openInventoryEditor()
-	item_array = Array.new
-	stat_hash = Hash.new{|key,value| key[value] = []}
-	i = 0; k = 0
-	Shoes.app :title => "Inventory" do
-		background "#000".."#066"
-		@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
-		button "Add", :margin_top => 10 do
-			if @item.text != ""
-				item_array[i] = @item.text
-				i += 1
+def openCoin()
+	Shoes.app :title =>"Coin Flip", width: 180, height: 34 do
+		@push = button "Flip"
+		@note = para "You feel lucky?"
+		@push.click {
+			side =(rand() * (2)).to_i
+			if side==0
+				side = "tails"
+			else
+				side = "heads"
 			end
-		end
-		button "Remove", :margin_top => 10 do
-			for i in 0..item_array.size
-				if item_array[i] == @item.text
-					item_array.delete_at(i)
-				end
-			end
-		end
-		
-		button "Show inventory", :margin_top => 10 do
-			Shoes.app :width => 200, :height => 200 do
-				stack do
-					item_array.each do |item|
-						button "#{item}" do
-							Shoes.app :width => 350, :height => 350 do
-								para "Add stat:\n"
-								@stat = edit_box width: 200, height: 30, margin_bottom: 3
-								button "Add" do
-									if @stat.text != ""
-										stat_hash[item][k] = @stat.text + "\n"
-									end
-									stat_hash.values.each do |val|
-										@p.clear { para val }
-										para "\n"
-									end
-									k += 1
-								end
-								@p = flow
-								para "\n\n"
-								stat_hash.values.each do |val|
-									@p.clear { para val }
-									para "\n"
-								end
-							end
-						end
-					end
-				end
-			end
-		end
+			@note.replace "#{side}"
+		}
 	end
 end
 
@@ -116,5 +73,23 @@ def openDice()
 			end
 		end
 		@p = flow
+	end
+end
+
+def openTurn()
+	i = 0
+	Shoes.app :title => "Turn counter", width: 150, height: 35 do
+		button "+" do
+			i += 1
+			@note.replace "Turn: #{i}"
+		end
+		button "-" do
+			i -= 1
+			if i == -1
+				i = 0
+			end
+			@note.replace "Turn: #{i}"
+		end
+		@note = para "Turn: #{i}"
 	end
 end

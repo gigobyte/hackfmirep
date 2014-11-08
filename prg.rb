@@ -1,16 +1,23 @@
 require './tools.rb'
 
 Shoes.app :title => "Board Games Tool" do
-	button "Inventory" do
-		openInventoryEditor()
+	background "#000".."#066"
+	button "Turn counter" do
+		openTurn()
 	end
-	para "\n\n"
-	button "Timer" do
-		openTimer()
-	end
-	para "\n\n"
 	button "Dice" do
 		openDice()
 	end
-	para "\n\n"
+	button "Timer" do
+		openTimer()
+	end
+	button "Coin" do
+		openCoin()
+	end
+	button "Open all tools" do
+		openTurn()
+		openDice()
+		openTimer()
+		openCoin()
+	end
 end
