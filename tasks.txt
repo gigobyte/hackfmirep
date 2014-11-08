@@ -14,7 +14,7 @@ Turn -YES
 Book Game:
 Inv (w/ desc) - n/a
 Notes (w/ date) - n/a
-Calc - n/a
+Calc - YES
 
 RPG
 Inv - n/a

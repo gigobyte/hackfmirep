@@ -1,5 +1,7 @@
+require 'date'
+
 def openTimer()
-	Shoes.app :width => 400, :height => 140 do 
+	Shoes.app :width => 400, :height => 140 do
 		@seconds = 0 
 		@paused = true 
 
@@ -11,7 +13,7 @@ def openTimer()
 					@seconds % 60 
 				  ], :stroke => @paused ? red : black 
 				end
-		end 
+		end
 		def buttons
 			button "Start", :width => '50%' do
 				if @item.text.to_i != 0 then
@@ -91,5 +93,62 @@ def openTurn()
 			@node.replace "Turn: #{i}"
 		end
 		@node = para "Turn: #{i}"
+	end
+end
+
+def openNote()
+	note_hash = Hash.new
+	Shoes.app :title => "Note", width: 300, height: 400 do
+		@note = edit_box width: 200, height: 30
+		button "Add" do
+			current_time = DateTime.now
+			if @note.text != ""
+				note_hash[@note.text] = current_time.strftime "%d/%m/%Y %H:%M"
+				para "#{note_hash.values.last} : #{note_hash.keys.last}\n"
+			end
+		end
+		para "\n\n"
+	end
+end
+
+def openCalc()
+	Shoes.app(title: "My calculator", width: 200, height: 240) do
+	  number_field = nil
+	  @number = 0
+	  @op = nil
+	  @previous = 0
+	  
+	  flow width: 200, height: 240 do
+		flow width: 0.7, height: 0.2 do
+		  background rgb(0, 0, 0)
+		  number_field = para @number, margin: 10, :stroke => white
+		end
+		
+		flow width: 0.3, height: 0.2 do
+		  button 'Clr', width: 1.0, height: 1.0 do
+			@number = 0
+			number_field.replace(@number)
+		  end
+		end    
+
+		flow width: 1.0, height: 0.8 do
+		  background rgb(139, 206, 236)
+		  %w(7 8 9 + 4 5 6 - 1 2 3 / 0 . = *).each do |btn|
+			button btn, width: 50, height: 50 do
+			  case btn
+				when /[0-9]/ 
+				  @number = @number.to_i * 10 + btn.to_i
+				
+				when '='
+				  @number = @previous.send(@op, @number)
+				else
+				  @previous, @number = @number, nil
+				  @op = btn
+			  end
+			  number_field.replace(@number)    
+			end
+		  end      
+		end
+	  end
 	end
 end

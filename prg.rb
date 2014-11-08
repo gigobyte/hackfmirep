@@ -1,7 +1,8 @@
 require './tools.rb'
 
 Shoes.app :title => "Board Games Tool" do
-	background "#000".."#066"
+	#background "#000".."#066"
+	
 	button "Turn counter" do
 		openTurn()
 	end
@@ -14,10 +15,10 @@ Shoes.app :title => "Board Games Tool" do
 	button "Coin" do
 		openCoin()
 	end
-	button "Open all tools" do
-		openTurn()
-		openDice()
-		openTimer()
-		openCoin()
+	button "Notes" do
+		openNote()
+	end
+	button "Calculator" do
+		openCalc()
 	end
 end
