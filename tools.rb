@@ -97,16 +97,22 @@ def openTurn()
 end
 
 def openNote()
+	i = 0
 	note_hash = Hash.new
 	Shoes.app :title => "Note", width: 300, height: 400 do
 		@note = edit_box width: 200, height: 30
+		file = File.new("notes.txt", "w")
 		button "Add" do
 			current_time = DateTime.now
 			if @note.text != ""
 				note_hash[@note.text] = current_time.strftime "%d/%m/%Y %H:%M"
 				para "#{note_hash.values.last} : #{note_hash.keys.last}\n"
+				file.puts("#{note_hash.values.last} : #{note_hash.keys.last}\n")
 			end
 		end
+		f1 = File.open("notes.txt")
+		f1_read = f1.readlines
+		para f1_read
 		para "\n\n"
 	end
 end

@@ -2,7 +2,7 @@ require './tools.rb'
 
 Shoes.app :title => "Board Games Tool" do
 	#background "#000".."#066"
-	
+
 	button "Turn counter" do
 		openTurn()
 	end
