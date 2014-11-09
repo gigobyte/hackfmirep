@@ -36,4 +36,8 @@ Shoes.app(title: "Advanced Board Games Tool", width: 670, height: 380, resizable
 	@image_life.click do
 		openLife()
 	end
+	@image_map = image "images/button_cart.png"
+	@image_map.click do
+		openMap()
+	end
 end

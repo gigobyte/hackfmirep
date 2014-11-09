@@ -1,8 +1,9 @@
 require 'date'
 
 def openTimer()
-	Shoes.app :width => 370, :height => 170, resizable: false do
+	Shoes.app :width => 370, :height => 170 do
 		background "images/turn_background.png"
+		@check=0
 		@seconds = 0 
 		@paused = true 
 
@@ -12,24 +13,23 @@ def openTimer()
 					@seconds / (60*60), 
 					@seconds / 60 % 60, 
 					@seconds % 60 
-				  ], :stroke => @paused ? brown : black 
+				  ], :stroke => @paused ? black : black 
 				end
 		end 
 		def buttons
 			@image_start = image "images/sign_start.png", margin_left: 27
 			@image_start.click do
 				if @item.text.to_i != 0 then
+					@check=0
 					@seconds = @item.text.to_i*60
-					@paused = !@paused 
-					display_time
-					@item.text = ""
-				end
-				if @seconds != 0 then
 					@paused = !@paused
+					@item.text = ""
+					display_time
 				end
 			end
 			@image_pause = image "images/sign_pause.png"
 			@image_pause.click do
+				@check=1
 				if @seconds != 0 then 
 					@paused = !@paused 
 				end
@@ -37,6 +37,9 @@ def openTimer()
 			end 
 			@image_reset = image "images/sign_reset.png"
 			@image_reset.click do
+					if @check==1 then
+						@paused = !@paused
+					end
 					if @seconds != 0 then
 						@paused = !@paused
 					end
@@ -281,5 +284,47 @@ def openLife()
 				@node.replace "\t\t\tPlayer 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
 		end
+	end
+end
+
+def openMap()
+	Shoes.app :width => 590, :height =>500, resizable: false do
+		img_array = Array.new
+		fill black
+		rect(0,0,590,500)
+		x = 295
+		y = 250
+		fill red
+		rect(x,y,16,16)
+		keypress { |key|
+			if key.inspect == ":up"
+				fill white
+				rect(x,y,16,16)
+				fill red
+				rect(x,y-17,16,16)
+				y -= 17
+			end
+			if key.inspect == ":left"
+				fill white
+				rect(x,y,16,16)
+				fill red
+				rect(x-17,y,16,16)
+				x -= 17
+			end
+			if key.inspect == ":right"
+				fill white
+				rect(x,y,16,16)
+				fill red
+				rect(x+17,y,16,16)
+				x += 17
+			end
+			if key.inspect == ":down"
+				fill white
+				rect(x,y,16,16)
+				fill red
+				rect(x,y+17,16,16)
+				y += 17
+			end
+		}
 	end
 end
