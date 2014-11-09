@@ -20,8 +20,12 @@ def openTimer()
 			@image_start.click do
 				if @item.text.to_i != 0 then
 					@seconds = @item.text.to_i*60
-					@paused = !@paused
+					@paused = !@paused 
 					display_time
+					@item.text = ""
+				end
+				if @seconds != 0 then
+					@paused = !@paused
 				end
 			end
 			@image_pause = image "images/sign_pause.png"
