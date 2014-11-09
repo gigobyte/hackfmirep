@@ -121,7 +121,8 @@ def openNote()
 	save_array = Array.new
 	i = 0
 	exception = 0
-	Shoes.app :title => "Note", width: 500, height: 380 do
+	exception2 = 0
+	Shoes.app :title => "Note", width: 600, height: 380 do
 		background "images/turn_background.png"
 		@note = edit_box width: 250, height: 30, margin_left: 40, margin_top: 5
 		@image_add = image "images/sign_add.png", margin_top: 1
@@ -144,6 +145,21 @@ def openNote()
 				File.open("notes.txt", "w+") do |f|
 					save_array.each { |element| f.puts(element) }
 				end
+			end
+		end
+		@image_load = image "images/sign_loadfile.png", margin_top: 1
+		@image_load.click do
+			file = File.open("notes.txt")
+			file_read = file.readlines
+			file_read.each do |e|
+				if exception2 == 0
+					para "\n\n"
+					exception2 = 1
+					exception = 1
+				end
+				para "\t#{e}"
+				save_array[i] = e
+				i += 1
 			end
 		end
 	end
