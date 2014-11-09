@@ -112,11 +112,11 @@ end
 
 def openNote()
 	note_hash = Hash.new
-#	file = File.new("notes.txt", "w")
-#	file.puts("0")
-	Shoes.app :title => "Note", width: 300, height: 400 do
-		@note = edit_box width: 200, height: 30
-		button "Add" do
+	Shoes.app :title => "Note", width: 400, height: 400 do
+		background "images/turn_background.png"
+		@note = edit_box width: 250, height: 30, margin_left: 40, margin_top: 5
+		@image_add = image "images/sign_add.png", margin_top: 1
+		@image_add.click do
 			current_time = DateTime.now
 			if @note.text != ""
 				note_hash[@note.text] = current_time.strftime "%d/%m/%Y %H:%M"
@@ -128,39 +128,39 @@ end
 
 def openCalc()
 	Shoes.app(title: "My calculator", width: 200, height: 240) do
-	  number_field = nil
-	  @number = 0
-	  @op = nil
-	  @previous = 0
+		number_field = nil
+		@number = 0
+		@op = nil
+		@previous = 0
 	  
-	  flow width: 200, height: 240 do
-		flow width: 0.7, height: 0.2 do
-		  background rgb(0, 0, 0)
-		  number_field = para @number, margin: 10, :stroke => white
-		end
+		flow width: 200, height: 240 do
+			flow width: 0.7, height: 0.2 do
+				background rgb(0, 0, 0)
+				number_field = para @number, margin: 10, :stroke => white
+			end
 		
 		flow width: 0.3, height: 0.2 do
-		  button 'Clr', width: 1.0, height: 1.0 do
+			button 'Clr', width: 1.0, height: 1.0 do
 			@number = 0
 			number_field.replace(@number)
-		  end
+		end
 		end    
 
 		flow width: 1.0, height: 0.8 do
-		  background rgb(139, 206, 236)
-		  %w(7 8 9 + 4 5 6 - 1 2 3 / 0 . = *).each do |btn|
+			background rgb(139, 206, 236)
+			%w(7 8 9 + 4 5 6 - 1 2 3 / 0 . = *).each do |btn|
 			button btn, width: 50, height: 50 do
-			  case btn
-				when /[0-9]/ 
-				  @number = @number.to_i * 10 + btn.to_i
+				case btn
+					when /[0-9]/ 
+						@number = @number.to_i * 10 + btn.to_i
 				
-				when '='
-				  @number = @previous.send(@op, @number)
+					when '='
+						@number = @previous.send(@op, @number)
 				else
-				  @previous, @number = @number, nil
-				  @op = btn
-			  end
-			  number_field.replace(@number)    
+					@previous, @number = @number, nil
+					@op = btn
+				end
+				number_field.replace(@number)    
 			end
 		  end      
 		end
@@ -169,22 +169,24 @@ def openCalc()
 end
 
 def openDPS()
-	Shoes.app :width => 370, :height => 280 do
+	Shoes.app :width => 400, :height => 280 do
+		background "images/turn_background.png"
 		dps = 0
 		resistance = 1
 		res_dps = 0
-		para "Base damage: "
+		para "Base damage:\t\t      "
 		@damage = edit_box width: 200, height: 30
 		para "\n\n"
-		para "Attack speed:   "
+		para "Attack speed:\t\t      "
 		@attack_speed = edit_box width: 200, height: 30
 		para "\n\n"
 		para "Enemy Resistance (in %): "
 		@resistance = edit_box width: 200, height: 30
-		button "Calculate" do
+		puts "\n\n"
+		@image_calc = image "images/sign_calculate.png", margin_left: 150
+		@image_calc.click do
 			dps = @damage.text.to_f*@attack_speed.text.to_f
 			res_dps = dps - (dps / (100 / @resistance.text.to_f))
-			para "\n\n"
 			@node.replace "Your DPS is #{dps} \nYour DPS including resistance is #{res_dps}"
 		end
 		para "\n\n"
@@ -193,11 +195,13 @@ def openDPS()
 end
 
 def openLife()
-	Shoes.app :width => 550, :height =>82 do
+	Shoes.app :width => 590, :height =>95 do
+		background "images/turn_background.png"
 		arr = ["Player 1","Player 2"]
 		life1 = 20; life2 = 20; p1 = 0; p2 = 0
-		@node = para "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
-		list_box :items => arr ,width: 200, height: 30 do |list|
+		@node = para "\t\t\tPlayer 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+		@node.style(size: 16)
+		list_box :items => arr ,width: 200, height: 30, margin_left: 12 do |list|
 			if list.text == "Player 1"
 				p1 = 1
 				p2 = 0
@@ -207,20 +211,22 @@ def openLife()
 			end
 		end
 		@command = edit_box width: 200, height: 30
-		button "Add" do
+		@image_add = image "images/block_add.png"
+		@image_add.click do
 			if p1 == 1 && 
 				@command.text = @command.text.delete('+')
 				life1 += @command.text.to_i
-				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+				@node.replace "\t\t\tPlayer 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
 			if p2 == 1
 				@command.text = @command.text.delete('+')
 				life2 += @command.text.to_i
-				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+				@node.replace "\t\t\tPlayer 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
 		end
 		
-		button "Remove" do
+		@image_remove = image "images/block_remove.png"
+		@image_remove.click do
 			if p1 == 1
 				@command.text = @command.text.delete('-')
 				life1 -= @command.text.to_i
