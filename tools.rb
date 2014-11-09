@@ -51,16 +51,17 @@ end
 
 def openCoin()
 	Shoes.app :title =>"Coin Flip", width: 180, height: 34 do
-		@push = button "Flip"
-		@note = para "You feel lucky?"
-		@push.click {
+		@image_flip = image "images/sign_flip.png"
+		@image_flip.click {
 			side =(rand() * (2)).to_i
 			if side==0
 				side = "tails"
+				@image = image "images/coin_tails.png"
 			else
 				side = "heads"
+				@image = image "images/coin_heads.png"
 			end
-			@note.replace "#{side}"
+			
 		}
 	end
 end
