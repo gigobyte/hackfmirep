@@ -1,6 +1,6 @@
 require './tools.rb'
 
-Shoes.app :title => "Advanced Board Games Tool", width: 670, height: 380  do
+Shoes.app(title: "Advanced Board Games Tool", width: 670, height: 380, resizable: false)  do
 	background "images/background.png"
 	@logo = image "images/logo.png", margin_left: 180
 	para "\n\n\n\n\n\n"

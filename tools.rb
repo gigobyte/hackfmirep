@@ -1,7 +1,7 @@
 require 'date'
 
 def openTimer()
-	Shoes.app :width => 370, :height => 170 do
+	Shoes.app :width => 370, :height => 170, resizable: false do
 		background "images/turn_background.png"
 		@seconds = 0 
 		@paused = true 
@@ -58,7 +58,7 @@ def openTimer()
 end
 
 def openCoin()
-	Shoes.app :title =>"Coin Flip", width: 150, height: 150 do
+	Shoes.app :title =>"Coin Flip", width: 150, height: 150, resizable: false do
 		background "images/turn_background.png"
 		@image_flip = image "images/sign_flip.png", margin_left: 22
 		@image_flip.click {
@@ -77,7 +77,7 @@ def openCoin()
 end
 
 def openDice()
-	Shoes.app :title => "Dice", width: 245, height: 200 do
+	Shoes.app :title => "Dice", width: 245, height: 200, resizable: false do
 		background "images/turn_background.png"
 		@node = para "Enter the number of sides:\n"
 		@node.style(size:15)
@@ -100,7 +100,7 @@ end
 
 def openTurn()
 	i = 0
-	Shoes.app :title => "Turn counter", width: 220, height: 190 do
+	Shoes.app :title => "Turn counter", width: 220, height: 190, resizable: false do
 		background "images/turn_background.png"
 		@image_sign = image "images/sign_plus.png"
 		@image_sign.click do
@@ -126,7 +126,7 @@ def openNote()
 	i = 0
 	exception = 0
 	exception2 = 0
-	Shoes.app :title => "Note", width: 600, height: 380 do
+	Shoes.app :title => "Note", width: 600, height: 380, resizable: false do
 		background "images/turn_background.png"
 		@note = edit_box width: 250, height: 30, margin_left: 40, margin_top: 5
 		@image_add = image "images/sign_add.png", margin_top: 1
@@ -170,7 +170,7 @@ def openNote()
 end
 
 def openCalc()
-	Shoes.app(title: "My calculator", width: 200, height: 240) do
+	Shoes.app(title: "My calculator", width: 200, height: 240, resizable: false) do
 		number_field = nil
 		@number = 0
 		@op = nil
@@ -212,7 +212,7 @@ def openCalc()
 end
 
 def openDPS()
-	Shoes.app :width => 400, :height => 240 do
+	Shoes.app :width => 400, :height => 240, resizable: false do
 		background "images/turn_background.png"
 		dps = 0
 		resistance = 1
@@ -238,7 +238,7 @@ def openDPS()
 end
 
 def openLife()
-	Shoes.app :width => 590, :height =>95 do
+	Shoes.app :width => 590, :height =>95, resizable: false do
 		background "images/turn_background.png"
 		arr = ["Player 1","Player 2"]
 		life1 = 20; life2 = 20; p1 = 0; p2 = 0
