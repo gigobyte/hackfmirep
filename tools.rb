@@ -50,19 +50,21 @@ def openTimer()
 end
 
 def openCoin()
-	Shoes.app :title =>"Coin Flip", width: 180, height: 34 do
-		@image_flip = image "images/sign_flip.png"
+	Shoes.app :title =>"Coin Flip", width: 150, height: 150 do
+		background "images/turn_background.png"
+		@image_flip = image "images/sign_flip.png", margin_left: 22
 		@image_flip.click {
 			side =(rand() * (2)).to_i
 			if side==0
 				side = "tails"
-				@image = image "images/coin_tails.png"
+				@p.path = "images/coin_tails.png"
 			else
 				side = "heads"
-				@image = image "images/coin_heads.png"
+				@p.path = "images/coin_heads.png"
 			end
-			
 		}
+		para "     "
+		@p = image "images/empty.png"
 	end
 end
 
