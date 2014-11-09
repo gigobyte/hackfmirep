@@ -118,7 +118,10 @@ end
 
 def openNote()
 	note_hash = Hash.new
-	Shoes.app :title => "Note", width: 400, height: 400 do
+	save_array = Array.new
+	i = 0
+	exception = 0
+	Shoes.app :title => "Note", width: 500, height: 380 do
 		background "images/turn_background.png"
 		@note = edit_box width: 250, height: 30, margin_left: 40, margin_top: 5
 		@image_add = image "images/sign_add.png", margin_top: 1
@@ -126,7 +129,21 @@ def openNote()
 			current_time = DateTime.now
 			if @note.text != ""
 				note_hash[@note.text] = current_time.strftime "%d/%m/%Y %H:%M"
-				para "#{note_hash.values.last} : #{note_hash.keys.last}\n"
+				if exception == 0
+					para "\n\n"
+					exception = 1
+				end
+				para "\t#{note_hash.values.last} : #{note_hash.keys.last}\n"
+				save_array[i] = note_hash.values.last + " : " + note_hash.keys.last
+				i += 1
+			end
+		end
+		@image_save = image "images/sign_savefile.png", margin_top: 1
+		@image_save.click do
+			if save_array[0] != nil
+				File.open("notes.txt", "w+") do |f|
+					save_array.each { |element| f.puts(element) }
+				end
 			end
 		end
 	end

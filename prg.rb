@@ -36,7 +36,4 @@ Shoes.app :title => "Board Games Tool", width: 670, height: 380  do
 	@image_life.click do
 		openLife()
 	end
-	button "Cartographer" do
-		openMap()
-	end
 end
