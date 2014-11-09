@@ -15,7 +15,7 @@ def openTimer()
 					@seconds % 60 
 				  ], :stroke => @paused ? black : black 
 				end
-		end 
+			end 
 		def buttons
 			@image_start = image "images/sign_start.png", margin_left: 27
 			@image_start.click do
@@ -48,9 +48,11 @@ def openTimer()
 			end 
 		end
 			animate(1) do 
-				@seconds -= 1 unless @paused 
-				display_time 
-			end 
+				if @seconds != 0 then
+					@seconds -= 1 unless @paused 
+					display_time 
+				end
+			end
 		#main
 		@display = stack :margin_left => 100 
 		display_time
@@ -288,42 +290,50 @@ def openLife()
 end
 
 def openMap()
-	Shoes.app :width => 590, :height =>500, resizable: false do
+	Shoes.app :width => 790, :height =>708, resizable: false do
 		img_array = Array.new
 		fill black
-		rect(0,0,590,500)
-		x = 295
-		y = 250
+		rect(0,0,790,708)
+		x = 395
+		y = 354
 		fill red
 		rect(x,y,16,16)
 		keypress { |key|
 			if key.inspect == ":up"
-				fill white
-				rect(x,y,16,16)
-				fill red
-				rect(x,y-17,16,16)
-				y -= 17
+				if y >= 17
+					fill white
+					rect(x,y,16,16)
+					fill red
+					rect(x,y-17,16,16)
+					y -= 17
+				end
 			end
 			if key.inspect == ":left"
-				fill white
-				rect(x,y,16,16)
-				fill red
-				rect(x-17,y,16,16)
-				x -= 17
+				if x >= 17
+					fill white
+					rect(x,y,16,16)
+					fill red
+					rect(x-17,y,16,16)
+					x -= 17
+				end
 			end
 			if key.inspect == ":right"
-				fill white
-				rect(x,y,16,16)
-				fill red
-				rect(x+17,y,16,16)
-				x += 17
+				if x <= 760
+					fill white
+					rect(x,y,16,16)
+					fill red
+					rect(x+17,y,16,16)
+					x += 17
+				end
 			end
 			if key.inspect == ":down"
-				fill white
-				rect(x,y,16,16)
-				fill red
-				rect(x,y+17,16,16)
-				y += 17
+				if y <= 680
+					fill white
+					rect(x,y,16,16)
+					fill red
+					rect(x,y+17,16,16)
+					y += 17
+				end
 			end
 		}
 	end
