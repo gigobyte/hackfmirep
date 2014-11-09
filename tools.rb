@@ -1,7 +1,7 @@
 require 'date'
 
 def openTimer()
-	Shoes.app :width => 400, :height => 140 do
+	Shoes.app :width => 400, :height => 140 do 
 		@seconds = 0 
 		@paused = true 
 
@@ -13,7 +13,7 @@ def openTimer()
 					@seconds % 60 
 				  ], :stroke => @paused ? red : black 
 				end
-		end
+		end 
 		def buttons
 			button "Start", :width => '50%' do
 				if @item.text.to_i != 0 then
@@ -27,17 +27,16 @@ def openTimer()
 				display_time 
 			end 
 			button "Reset", :width => '50%' do 
-				if @seconds != 0 && @item.to_i != 0 then
 					@seconds = 0
 					@paused = !@paused
 					display_time
-				end 
 			end 
 		end
 			animate(1) do 
 				@seconds -= 1 unless @paused 
 				display_time 
 			end 
+		#main
 		@display = stack :margin_left => 100 
 		display_time
 		@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
@@ -80,12 +79,15 @@ end
 
 def openTurn()
 	i = 0
-	Shoes.app :title => "Turn counter", width: 150, height: 35 do
-		button "+" do
+	Shoes.app :title => "Turn counter", width: 220, height: 190 do
+		background "images/turn_background.png"
+		@image_sign = image "images/sign_plus.png"
+		@image_sign.click do
 			i += 1
 			@node.replace "Turn: #{i}"
 		end
-		button "-" do
+		@image_sign2 = image "images/sign_minus.png"
+		@image_sign2.click do
 			i -= 1
 			if i == -1
 				i = 0
@@ -93,6 +95,7 @@ def openTurn()
 			@node.replace "Turn: #{i}"
 		end
 		@node = para "Turn: #{i}"
+		@node.style(stroke: brown, font: "Calibri", size: 40)
 	end
 end
 
