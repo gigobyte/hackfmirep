@@ -1,7 +1,8 @@
 require 'date'
 
 def openTimer()
-	Shoes.app :width => 400, :height => 140 do 
+	Shoes.app :width => 370, :height => 170 do
+		background "images/turn_background.png"
 		@seconds = 0 
 		@paused = true 
 
@@ -11,22 +12,25 @@ def openTimer()
 					@seconds / (60*60), 
 					@seconds / 60 % 60, 
 					@seconds % 60 
-				  ], :stroke => @paused ? red : black 
+				  ], :stroke => @paused ? brown : black 
 				end
 		end 
 		def buttons
-			button "Start", :width => '50%' do
+			@image_start = image "images/sign_start.png", margin_left: 27
+			@image_start.click do
 				if @item.text.to_i != 0 then
 					@seconds = @item.text.to_i*60
 					@paused = !@paused
 					display_time
 				end
 			end
-			button "Pause/Continue", :width => '50%' do 
+			@image_pause = image "images/sign_pause.png"
+			@image_pause.click do
 				@paused = !@paused 
 				display_time 
 			end 
-			button "Reset", :width => '50%' do 
+			@image_reset = image "images/sign_reset.png"
+			@image_reset.click do
 					@seconds = 0
 					@paused = !@paused
 					display_time
@@ -39,7 +43,8 @@ def openTimer()
 		#main
 		@display = stack :margin_left => 100 
 		display_time
-		@item = edit_box width: 200, height: 40, margin_right: 3, margin_top: 10
+		@item = edit_box width: 370, height: 40, margin_right: 3, margin_top: 10
+		para "\n"
 		buttons
 	end
 end
@@ -61,19 +66,24 @@ def openCoin()
 end
 
 def openDice()
-	Shoes.app :title => "Dice", width: 300, height: 100 do
-		para "Enter the number of sides:"
-		@dice_sides = edit_box width: 200, height: 30, margin_right: 3
+	Shoes.app :title => "Dice", width: 245, height: 200 do
+		background "images/turn_background.png"
+		@node = para "Enter the number of sides:\n"
+		@node.style(size:15)
+		@dice_sides = edit_box width: 200, height: 30, margin_left: 40
 		
-		button "Generate" do
+		@image_sign = image "images/sign_generate.png", margin_left: 70
+		@image_sign.click do
 			if (@dice_sides.text.to_i > 0)
 				dice =(rand() * (@dice_sides.text.to_i)).to_i
-				@p.clear { para "You rolled: #{dice + 1}"}
+				@node2.replace "You rolled: #{dice + 1}"
 			else
-				@p.clear{para "Input a number"}
+			@node2.replace "Input a number"
 			end
 		end
-		@p = flow
+		para "\n\n\n"
+		@node2 = para ""
+		@node2.style(size:15, margin_left: 65)
 	end
 end
 
