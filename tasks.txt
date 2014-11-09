@@ -6,13 +6,11 @@ Coin - YES
 Timer - YES
 
 Board:
-Turn -YES
+Turn - YES   
 
 Book Game:
-Inv (w/ desc) - n/a
 Notes (w/ date) - YES
 Calc - YES
 
 RPG
-Inv - n/a
 Calc (w/ %,DPS) - YES

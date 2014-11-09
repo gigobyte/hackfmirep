@@ -26,13 +26,17 @@ def openTimer()
 			end
 			@image_pause = image "images/sign_pause.png"
 			@image_pause.click do
-				@paused = !@paused 
+				if @seconds != 0 then 
+					@paused = !@paused 
+				end
 				display_time 
 			end 
 			@image_reset = image "images/sign_reset.png"
 			@image_reset.click do
+					if @seconds != 0 then
+						@paused = !@paused
+					end
 					@seconds = 0
-					@paused = !@paused
 					display_time
 			end 
 		end
@@ -171,7 +175,7 @@ def openCalc()
 end
 
 def openDPS()
-	Shoes.app :width => 400, :height => 280 do
+	Shoes.app :width => 400, :height => 240 do
 		background "images/turn_background.png"
 		dps = 0
 		resistance = 1
@@ -232,12 +236,12 @@ def openLife()
 			if p1 == 1
 				@command.text = @command.text.delete('-')
 				life1 -= @command.text.to_i
-				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+				@node.replace "\t\t\tPlayer 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
 			if p2 == 1
 				@command.text = @command.text.delete('-')
 				life2 -= @command.text.to_i
-				@node.replace "Player 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
+				@node.replace "\t\t\tPlayer 1: #{life1}\t\tPlayer 2: #{life2}\n\n"
 			end
 		end
 	end

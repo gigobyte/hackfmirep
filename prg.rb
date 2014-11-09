@@ -1,8 +1,9 @@
 require './tools.rb'
 
-Shoes.app :title => "Board Games Tool", width: 670, height: 230  do
+Shoes.app :title => "Board Games Tool", width: 670, height: 380  do
 	background "images/background.png"
-	
+	@logo = image "images/logo.png", margin_left: 180
+	para "\n\n\n\n\n\n"
 	@image_counter = image "images/button_counter.png"
 	@image_counter.click do
 			openTurn()
@@ -34,5 +35,8 @@ Shoes.app :title => "Board Games Tool", width: 670, height: 230  do
 	@image_life = image "images/button_life.png"
 	@image_life.click do
 		openLife()
+	end
+	button "Cartographer" do
+		openMap()
 	end
 end
