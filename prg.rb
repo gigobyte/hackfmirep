@@ -9,24 +9,30 @@ Shoes.app :title => "Board Games Tool", width: 800, height: 550  do
 	end
 	@image_dice = image "images/button_dice.png"
 	@image_dice.click do
-			openDice()
+		openDice()
 	end
-	button "Timer" do
+	@image_timer = image "images/button_timer.png"
+	@image_timer.click do
 		openTimer()
 	end
-	button "Coin" do
+	@image_coin = image "images/button_coin.png"
+	@image_coin.click do
 		openCoin()
 	end
-	button "Notes" do
+	@image_note = image "images/button_note.png"
+	@image_note.click do
 		openNote()
 	end
-	button "Calculator" do
+	@image_calc = image "images/button_calc.png"
+	@image_calc.click do
 		openCalc()
 	end
-	button "DPS Calculator" do
+	@image_dps = image "images/button_dps.png"
+	@image_dps.click do
 		openDPS()
 	end
-	button "Life Calculator" do
+	@image_life = image "images/button_life.png"
+	@image_life.click do
 		openLife()
 	end
 end
