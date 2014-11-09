@@ -1,6 +1,6 @@
 require './tools.rb'
 
-Shoes.app :title => "Board Games Tool", width: 670, height: 230  do
+Shoes.app :title => "Board Games Tool", width: 670, height: 550  do
 	background "images/background.png"
 	
 	@image_counter = image "images/button_counter.png"
